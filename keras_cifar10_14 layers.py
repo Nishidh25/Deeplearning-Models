@@ -187,7 +187,7 @@ if __name__ == "__main__":
         
     # Save model and weights
     save_dir = os.path.join(os.getcwd(), 'Deeplearning-Models\saved_models')
-    model_name = 'cifar10_trained_model_'+ modelname+ '_batch_'+ str(batch_size)+ '_epoch_' + str(epochs) + '_aug_' + str(data_augmentation) + '_' + datetime.datetime.now().strftime("%Y%m%d-%H%M%S") +'.h5'  
+    model_name = 'cifar10_trained_model_'+modelname+'_batch_'+str(batch_size)+'_epoch_'+str(epochs) +'_aug_'+str(data_augmentation)+'_'+datetime.datetime.now().strftime("%Y%m%d-%H%M%S")+'.h5'  
     
     if not os.path.isdir(save_dir):
         os.makedirs(save_dir)
