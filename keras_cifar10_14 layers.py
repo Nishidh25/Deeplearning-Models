@@ -106,9 +106,6 @@ if __name__ == "__main__":
     print(x_train.shape[0], 'train samples')
     print(x_test.shape[0], 'test samples')
     
-    save_dir = os.path.join(os.getcwd(), 'saved_models')
-    model_name = 'cifar10_trained_model_'+ modelname+ '_batch_'+ str(batch_size)+ '_epoch_' + str(epochs) + '_aug_' + str(data_augmentation) + '_' + datetime.datetime.now().strftime("%Y%m%d-%H%M%S") +'.h5'  
-    
     y_train = keras.utils.to_categorical(y_train, num_classes)
     y_test = keras.utils.to_categorical(y_test, num_classes)
     
@@ -186,15 +183,17 @@ if __name__ == "__main__":
                             epochs=epochs,
                             validation_data=(x_test, y_test),
                             workers=4)
-        
+    
         
     # Save model and weights
+    save_dir = os.path.join(os.getcwd(), 'Deeplearning-Models\saved_models')
+    model_name = 'cifar10_trained_model_'+ modelname+ '_batch_'+ str(batch_size)+ '_epoch_' + str(epochs) + '_aug_' + str(data_augmentation) + '_' + datetime.datetime.now().strftime("%Y%m%d-%H%M%S") +'.h5'  
+    
     if not os.path.isdir(save_dir):
         os.makedirs(save_dir)
     model_path = os.path.join(save_dir, model_name)
     model.save(model_path)
     print('Saved trained model at %s ' % model_path)
-    
     
     # Score trained model.
     scores = model.evaluate(x_test, y_test, verbose=1)
