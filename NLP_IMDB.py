@@ -15,7 +15,8 @@ import matplotlib.pyplot as plt
 
 print(tf.__version__)
 
-subwords = True
+subwords = False
+LSTM = True
 
 if subwords:
     imdb , info = tfds.load('imdb_reviews/subwords8k',with_info = True , as_supervised = True)
@@ -122,13 +123,30 @@ else:
     testing_padded = pad_sequences(testing_sequences, maxlen = max_length) 
     
     
-    model = tf.keras.Sequential([
-        tf.keras.layers.Embedding(vocab_size , embedding_dim , input_length = max_length),
-        tf.keras.layers.GlobalAveragePooling1D(),
-        tf.keras.layers.Dense(6,activation = 'relu'),
-        tf.keras.layers.Dense(1 , activation = 'sigmoid')    
-        ])
+    if not LSTM:
+        model = tf.keras.Sequential([
+            tf.keras.layers.Embedding(vocab_size , embedding_dim , input_length = max_length),
+            tf.keras.layers.GlobalAveragePooling1D(),
+            tf.keras.layers.Dense(6,activation = 'relu'),
+            tf.keras.layers.Dense(1 , activation = 'sigmoid')    
+            ])
+    else:
+        model = tf.keras.Sequential([
+            tf.keras.layers.Embedding(vocab_size , embedding_dim , input_length = max_length),
+            tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32)),
+            # Another type of RNN
+            # tf.keras.layers.Bidirectional(tf.keras.layers.GTU(32)),
+            
+            # tf.keras.layers.Conv2D(128,5,activation = 'relu')
+            # Use avd pool 1D with conv only 
+            #tf.keras.layers.GlobalAveragePooling1D(),
+            tf.keras.layers.Dense(6,activation = 'relu'),
+            tf.keras.layers.Dense(1 , activation = 'sigmoid')    
+            ])
     
+#https://www.coursera.org/learn/natural-language-processing-tensorflow/supplement/TAAsf/exploring-different-sequence-models    
+
+
     
     model.compile(loss = 'binary_crossentropy',optimizer = 'adam', metrics = ['accuracy'])
     model.summary()
