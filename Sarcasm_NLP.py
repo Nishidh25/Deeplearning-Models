@@ -16,7 +16,7 @@ embedding_dim = 16
 max_length = 32
 trunc_type = 'post'
 padding_type = 'post'
-oov_token = '<OOV>'
+oov_tok = '<OOV>'
 training_size = 20000
 
 with open("D:\\Downloads\\sarcasm.json", 'r') as f:
