@@ -4,8 +4,9 @@ Created on Mon May 25 00:26:53 2020
 
 @author: Nishidh Shekhawat
 """
-import tensorflow as tf
+# Simple image classification of imagenet dataset with pretrained model from tensorflow 
 
+import tensorflow as tf
 
 model = tf.keras.applications.ResNet50(
     include_top=True, weights='imagenet', input_tensor=None, input_shape=None,
@@ -1020,8 +1021,7 @@ img = tf.io.read_file("C:\\Users\\Nishidh Shekhawat\\Nishidh25.github.io\\public
 img = tf.image.decode_jpeg(img, channels=3)
 img.set_shape([None, None, 3])
 img = tf.image.resize(img, (224, 224))
-img = np.array(img)
-#img = img.eval(session=sess) # convert to numpy array
+img = np.array(img) # convert to numpy array
 img = np.expand_dims(img, 0) # make 'batch' of 1
 #%%
 pred = model.predict(img)
