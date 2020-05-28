@@ -14,7 +14,6 @@ import datetime
 from matplotlib import pyplot
 import tqdm
 
-
 labels = ["airplane","automobile", "bird","cat", "deer", "dog","frog","horse","ship ","truck"]
 
 class myCallback(tf.keras.callbacks.Callback):
@@ -260,16 +259,6 @@ Y_pred_errors = pred[errors]
 Y_true_errors = Y_true[errors]
 X_test_errors = x_test[errors]
 
-# cm = confusion_matrix(Y_true, Y_pred_classes) 
-# thresh = cm.max() / 2.
-
-# fig, ax = plt.subplots(figsize=(12,12))
-# im, cbar = heatmap(cm, labels, labels, ax=ax,
-#                    cmap=plt.cm.Blues, cbarlabel="count of predictions")
-# texts = annotate_heatmap(im, data=cm, threshold=thresh)
-
-# fig.tight_layout()
-# plt.show()
 
 R = 5
 C = 5
@@ -283,17 +272,15 @@ for i in np.arange(0, R*C):
     plt.subplots_adjust(wspace=1)
     
 #%%
-import numpy as np
 filepath='C:\\Users\\Nishidh Shekhawat\\Deeplearning-Models\\Deeplearning-Models\\saved_models\\cifar10_trained_model_Layer 14_batch_32_epoch_100_aug_True_20200524-225521.h5'#):
 model = tf.keras.models.load_model(filepath, custom_objects=None, compile=True)
-labels = ["airplane","automobile", "bird","cat", "deer", "dog","frog","horse","ship ","truck"]
+#labels = ["airplane","automobile", "bird","cat", "deer", "dog","frog","horse","ship ","truck"]
 
 img = tf.io.read_file("C:\\Users\\Nishidh Shekhawat\\Nishidh25.github.io\\public\\images\\air.jpg")
 img = tf.image.decode_jpeg(img, channels=3)
 img.set_shape([None, None, 3])
 img = tf.image.resize(img, (32, 32))
-img = np.array(img)
-#img = img.eval(session=sess) # convert to numpy array
+img = np.array(img) # convert to numpy array
 img = np.expand_dims(img, 0) # make 'batch' of 1
 
 pred = model.predict(img)
